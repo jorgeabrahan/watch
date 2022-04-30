@@ -37,8 +37,12 @@ export default function Clock() {
                 minutes += 1;
                 seconds = 0;
             }
-            else {
+            else if (hours < 24){
                 hours += 1;
+                minutes = 0;
+                seconds = 0;
+            } else {
+                hours = 0;
                 minutes = 0;
                 seconds = 0;
             }
