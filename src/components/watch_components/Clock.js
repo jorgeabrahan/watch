@@ -1,37 +1,66 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Clock() {
-    const date = new Date();
-    const weekDays = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
-    const weekDay = weekDays[date.getDay()];
-    const monthDay = date.getDate();
-    const year = date.getFullYear();
-    const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
-    const month = months[date.getMonth()];
+
+    const [date, setDate] = useState('');
 
     const [time, setTime] = useState({
-        hours: '00',
-        minutes: '00',
-        seconds: '00',
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
     });
+    
+    useEffect(() => {
+        const date = new Date();
+        const weekDays = ['domingo', 'lunes', 'martes', 'miercoles', 'jueves', 'viernes', 'sabado'];
+        const months = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
 
-    window.setInterval(() => {
+        const weekDay = weekDays[date.getDay()];
+        const monthDay = date.getDate();
+        const month = months[date.getMonth()];
+        const year = date.getFullYear();
+
+        setDate(`${weekDay} ${monthDay} de ${month} del ${year}`);
+
+        let hours = date.getHours();
+        let minutes = date.getMinutes();
+        let seconds = date.getSeconds();
         setTime({
-            hours: date.getHours().toString(),
-            minutes: date.getMinutes().toString(),
-            seconds: date.getSeconds().toString()
-        })
-    }, 1000);
+            hours: hours,
+            minutes: minutes,
+            seconds: seconds
+        });
+        
+        setInterval(() => {
+            if (seconds < 59) seconds += 1;
+            else if (minutes < 59) {
+                minutes += 1;
+                seconds = 0;
+            }
+            else {
+                hours += 1;
+                minutes = 0;
+                seconds = 0;
+            }
+            setTime({
+                hours: hours,
+                minutes: minutes,
+                seconds: seconds
+            });
+        }, 1000);
+
+    }, []);
 
 
-    const addZeros = (time) => time.length < 2 ? `0${time}` : time;
+
+    const addZeros = (time) => time.toString().length < 2 ? `0${time}` : time;
 
     return (
         <div className="clock__screen clock">
             <p className="time">
                 {`${addZeros(time.hours)}:${addZeros(time.minutes)}:${addZeros(time.seconds)}`}
             </p>
-            <p>{`${weekDay} ${monthDay} de ${month} del ${year}`}</p>
+            <p>{`${date}`}</p>
         </div>
     );
 }
