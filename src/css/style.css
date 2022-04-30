@@ -1,0 +1,297 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+body, p {
+    margin: 0;
+}
+
+img {
+    max-width: 100%;
+}
+
+.pe-none {
+    pointer-events: none;
+}
+
+button:active {
+    transform: scale(.95);
+}
+
+/* watch styles */
+.watch {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 100vh;
+    padding: 0.5rem;
+    transition: 
+    background-color 500ms ease,
+    color 500ms ease
+    ;
+
+
+    --clr-watch-border: #231A1C;
+    --bgc-settings-btn: #333333;
+    --clr-settings-btn: #fff;
+    --bgc-settings-btn-hover: #131313;
+    --bgc-details: #000000cc;
+    --clr-details: #fff;
+}
+.watch--dark {
+    background-color: #010101;
+    color: white;
+    --clr-watch-border: #b4b1b1;
+    --bgc-settings-btn: #c6c4c4;
+    --clr-settings-btn: #000000;
+    --bgc-settings-btn-hover: #ffffff;
+    --bgc-details: #e4e3e3ea;
+    --clr-details: #000000;
+}
+
+.watch__frame {
+    --clock-dimensions: 300px;
+    width: var(--clock-dimensions);
+    height: var(--clock-dimensions);
+
+    border: 5px solid var(--clr-watch-border);
+    border-radius: 15px;
+
+    display: flex;
+    flex-direction: column;
+}
+
+/* Clock header */
+.watch__header {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+
+    padding: 0.5rem;
+}
+
+.header__option {
+    cursor: pointer;
+}
+
+/* Clock header settings */
+.header__settings {
+    position: relative;
+}
+.header__settings span {
+    pointer-events: none;
+}
+
+@media (min-width: 768px) {
+    .header__settings:hover .settings__buttons {
+        opacity: 1;
+    }
+}
+
+.settings__buttons {
+    --btns-separation: .5rem;
+    padding: 0 var(--btns-separation);
+    margin-inline: auto;
+    margin-block: var(--btns-separation);
+    max-width: 500px;
+
+    transition: opacity 250ms ease;
+    opacity: 0;
+
+    display: flex;
+    gap: var(--btns-separation);
+    
+    position: absolute;
+    bottom: 130%;
+    right: -80%;
+}
+
+@media (max-width: 768px) {
+    .opacity-toggle {
+        opacity: 1;
+    }
+}
+
+.settings__button {
+    font-size: 1em;
+    cursor: pointer;
+
+    padding: .5rem;
+    width: max-content;
+    
+    border-style: none;
+    border-radius: 10px;
+    outline-style: none;
+
+    background-color: var(--bgc-settings-btn);
+    color: var(--clr-settings-btn);
+
+    transition: background-color 250ms linear;
+
+    position: relative;
+}
+
+.settings__button:hover, .settings__button:focus {
+    background-color: var(--bgc-settings-btn-hover);
+}
+@media (min-width: 768px) {
+    .settings__button:hover .settings__details {
+        opacity: 1;
+    }
+}
+.settings__button span {
+    pointer-events: none;
+}
+
+.details {
+    padding: 0.5rem;
+    border-radius: 5px;
+    
+    background-color: var(--bgc-details);
+    color: var(--clr-details);
+    
+    display: inline-block;
+    opacity: 0;
+    transition: opacity 250ms ease;
+    position: absolute;
+}
+.settings__details {
+    width: 100px;
+
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 120%;
+}
+
+@media (max-width: 768px) {
+    .settings__details {
+        opacity: 1;
+        transform: translateX(-50%) rotateZ(-90deg);
+        bottom: 200%;
+    }
+}
+.timer__details {
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 120%;
+}
+
+
+@media (max-width: 768px) {
+    .details {
+        font-size: .8em;
+    }
+}
+
+/* Clock screen */
+.clock__screen {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* General classes for all screens */
+.time {
+    font-size: 2.3em;
+    font-weight: bold;
+}
+.screen__buttons {
+    display: flex;
+    gap: .5rem;
+
+    margin-block: .5rem;
+}
+.screen__button {
+    cursor: pointer;
+    padding: 0.5rem;
+    
+    border-style: none;
+    border-radius: 5px;
+    outline-style: none;
+    
+    background-color: #333333;
+    color: white;
+    
+    transition: background-color 350ms ease-out;
+}
+.screen__button:hover, .screen__button:focus {
+    background-color: #141414;
+}
+
+/* Screens */
+/* Clock screen */
+.clock {
+    justify-content: center;
+    
+    gap: .5rem;
+    padding: .25rem 0.5rem;
+}
+
+/* Timer screen */
+.timer, .stopwatch, .counter {
+    justify-content: space-evenly;
+    
+    padding: 0.5rem;
+}
+.timer__form {
+    width: 100%;
+}
+.timer__inputs {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+}
+.timer__group {
+    position: relative;
+}
+.timer__input {
+    width: 100%;
+    padding: 0.5em;
+    
+    border-style: none;
+    border: 2px solid #000;
+    border-radius: 5px;
+    outline-style: none;
+
+    text-align: center;
+}
+.timer__input:focus + .timer__details {
+    opacity: 1;
+}
+.timer__button {
+    flex: 1;
+}
+.timer__button--start {
+    background-color: #333333;
+}
+.timer__button--start:hover, .timer__button--start:focus {
+    background-color: #141414;
+}
+.timer__button--reset, .stopwatch__button--reset {
+    background-color: #E84855;
+}
+.timer__button--reset:hover, .timer__button--reset:focus, .stopwatch__button--reset:hover, .stopwatch__button--reset:focus {
+    background-color: #DA1B2B;
+}
+
+/* Stopwatch screen */
+.stopwatch__buttons {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+}
+
+.stopwatch__button--start {
+    background-color: #40858C;
+}
+.stopwatch__button--start:hover, .stopwatch__button--start:focus {
+    background-color: #2D5D62;
+}
+
+/* Counter screen */
+.counter__button .counter__icon {
+    font-size: 40px;
+} 
